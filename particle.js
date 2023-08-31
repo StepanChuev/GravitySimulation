@@ -35,7 +35,7 @@ class Particle {
 		};
 	}
 
-	calculateVelocities(particle){
+	calculateVelocitie(particle){
 		const acceleration = this.calculateAcceleration(particle);
 		const velocities = {
 			vx: this.vx,
