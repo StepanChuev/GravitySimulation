@@ -9,8 +9,11 @@ context.lineWidth = 1;
 
 const system = new System([
 	new Particle(canvas.width / 2, canvas.height / 2, 0, 0, 100),
-	new Particle(canvas.width / 2, canvas.height / 2 - 150, 0.8, 0, 10),
-], -1);
+	new Particle(canvas.width / 2, canvas.height / 2 - 100, 0.8, 0, 7),
+	new Particle(canvas.width / 2, canvas.height / 2 + 250, -0.65, 0, 1),
+	new Particle(canvas.width / 2, canvas.height / 2 + 400, -0.50, 0, 0.1),
+	new Particle(canvas.width / 2, canvas.height / 2 + 380, -0.15, 0, 0.00001),
+], 0);
 
 const systemDrawParams = [
 	{
@@ -21,7 +24,22 @@ const systemDrawParams = [
 	{
 		fillStyle: "#00f",
 		radius: 7
-	}
+	},
+
+	{
+		fillStyle: "#f00",
+		radius: 7
+	},
+
+	{
+		fillStyle: "#0f0",
+		radius: 7
+	},
+
+	{
+		fillStyle: "#fff",
+		radius: 3
+	},
 ];
 
 
