@@ -1,6 +1,6 @@
 'use strict';
 
-const G = 1; // 6.67430e-11
+const G = 1;
 
 class Particle {
 	constructor(x, y, vx, vy, weight){
@@ -30,8 +30,8 @@ class Particle {
 		const force = this.gravityForce(particle);
 
 		return {
-			x: (force.x / particle.weight),
-			y: (force.y / particle.weight)
+			x: (force.x / this.weight),
+			y: (force.y / this.weight)
 		};
 	}
 
