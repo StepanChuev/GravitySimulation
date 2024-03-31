@@ -3,21 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gravity Simulation</title>
-	<style>
-		body {
-			margin: 0;
-			background-color: #000;
-			overflow: hidden;
-		}
-	</style>
+	<title>Gravitation Simulation</title>
+	<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 	<canvas class="canvas"></canvas>
+	<div class="panel">
+		<div class="dropdown">
+			<p class="expand">Info: </p> <ul class="info"></ul>
+		</div></br>
+		Drawing: <ul class="drawing">
+			<li>Transparency <input class="transparency" type="range" min="0" max="1" step="0.01" value="1"></li>
+			<li>Draw <input class="draw" type="checkbox" checked></li>
+			<li>Pause <input class="pause" type="checkbox"></li>
+		</ul>
+		<button class="btn" id="create">Create</button><button class="btn" id="remove">Remove</button></br>
+	</div>
 
-	<script src="./animation.js"></script>
+	<script src="./module.js"></script>
 	<script src="./particle.js"></script>
 	<script src="./system.js"></script>
+	<script src="./handlers.js"></script>
 	<script src="./script.js"></script>
 </body>
 </html>
