@@ -1,50 +1,53 @@
 'use strict';
 
-const G = 1;
-
 class Particle {
-	constructor(x, y, vx, vy, weight){
+	constructor(x, y, vx, vy, weight, G = 1){
 		this.x = x;
 		this.y = y;
 		this.vx = vx;
 		this.vy = vy;
 		this.weight = weight;
+		this.G = G;
 	}
 
-	static distance(x1, y1, x2, y2){
-		return Math.sqrt(Math.abs(x1 - x2) ** 2 + Math.abs(y1 - y2) ** 2);
-	}
-
-	gravityForce(particle){
-		const distance = Particle.distance(this.x, this.y, particle.x, particle.y);
-		const dx = particle.x - this.x, dy = particle.y - this.y;
-		const force = ((G * particle.weight * this.weight) / (distance ** 2));
+	calculateForce(x2, y2, weight2){
+		const force = this.G * (this.weight * weight2) / (distanceBetween(this.x, this.y, x2, y2) ** 2);
 
 		return {
-			x: dx * force / distance,
-			y: dy * force / distance
+			x: force * Math.sqrt((x2 - this.x) ** 2 / ((x2 - this.x) ** 2 + (y2 - this.y) ** 2)) * Math.sign(x2 - this.x),
+			y: force * Math.sqrt((this.y - y2) ** 2 / ((x2 - this.x) ** 2 + (y2 - this.y) ** 2)) * Math.sign(y2 - this.y)
 		};
 	}
 
-	calculateAcceleration(particle){
-		const force = this.gravityForce(particle);
+	calculateAcceleration(x2, y2, weight2){
+		const force = this.calculateForce(x2, y2, weight2);
 
 		return {
-			x: (force.x / this.weight),
-			y: (force.y / this.weight)
+			x: force.x / this.weight,
+			y: force.y / this.weight,
 		};
 	}
 
-	calculateVelocitie(particle){
-		const acceleration = this.calculateAcceleration(particle);
-		const velocities = {
-			vx: this.vx,
-			vy: this.vy
-		};
+	updateVelocity(particles, ignoreIndex = -1){
+		for (let i = 0; i < particles.length; i++){
+			if (i === ignoreIndex){
+				continue;
+			}
 
-		velocities.vx += acceleration.x;
-		velocities.vy += acceleration.y;
+			const acceleration = this.calculateAcceleration(particles[i].x, particles[i].y, particles[i].weight);
 
-		return velocities;
+			this.vx += acceleration.x;
+			this.vy += acceleration.y;
+		}
+	}
+
+	updateCoordinates(){
+		this.x += this.vx;
+		this.y += this.vy;
+	}
+
+	update(particles, ignoreIndex = -1){
+		this.updateVelocity(particles, ignoreIndex);
+		this.updateCoordinates();
 	}
 }
